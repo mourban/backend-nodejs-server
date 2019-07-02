@@ -1,6 +1,6 @@
-# ReactJS CRUD Usuarios + Login
+# Node.js CRUD Usuarios + Login Postgres
 
-Este proyecto ReactJS CRUD Usuarios + Login te permite hacer lo siguiente:
+Este proyecto backend Node.js CRUD Usuarios + Login te permite hacer lo siguiente:
   - Puedes registrar usuarios.
   - Puedes editar usuarios.
   - Puedes eliminar usuarios.
@@ -9,30 +9,96 @@ Este proyecto ReactJS CRUD Usuarios + Login te permite hacer lo siguiente:
 
 Este proyecto es para aprendizaje.
 
+##  Requisitos
+
+  - Node.js
+  - Postgres
+
 ##  Como instalar
 
 ```bash
-git clone git@github.com:mourban/front-react-client.git
-cd front-react-client
+git clone git@github.com:mourban/backend-nodejs-server.git
+cd backend-nodejs-server
 npm install
+```
+
+## Servidor de Base de Datos
+
+Instalar base de datos Postgres e iniciar servidor local. Luego correr el siguiente script:
+
+```bash
+-- Table: public."user"
+
+-- DROP TABLE public."user";
+
+CREATE TABLE public."user"
+(
+    id_user uuid NOT NULL,
+    first_name character varying(50) COLLATE pg_catalog."default",
+    last_name character varying(50) COLLATE pg_catalog."default",
+    email character varying(100) COLLATE pg_catalog."default",
+    password character varying(250) COLLATE pg_catalog."default",
+    created character varying(100) COLLATE pg_catalog."default",
+    CONSTRAINT users_pkey PRIMARY KEY (id_user)
+)
 ```
 
 ## Como iniciar la aplicación
 
 ```bash
-cd front-react-client
+cd backend-nodejs-server
 npm start
 ```
-Su navegador web predeterminado se iniciará automáticamente con la url http://localhost:3000 e intentará comunicarse con un backend desarrollado en Node.js a la url http://localhost:5000 este proyecto se encuentra en la url https://github.com/mourban/backend-nodejs-server
+Al iniciar la aplicación lo hará en la url http://localhost:5000
 
 ## Como iniciar las pruebas automáticas
 
 ```bash
-cd front-react-client
+cd backend-nodejs-server
 npm test
 ```
 
-## License
+# Rest API
+
+La API Rest para la aplicación se describe a continuación.
+
+## Lista de Usuarios
+
+### Request
+
+`GET /list`
+
+## Buscar Usuario
+
+### Request
+
+`GET /:id`
+
+## Agregar Usuario
+
+### Request
+
+`POST /add`
+
+## Editar Usuario
+
+### Request
+
+`PUT /update/:id`
+
+## Eliminar Usuario
+
+### Request
+
+`DELETE /delete/:id`
+
+## Login
+
+### Request
+
+`POST /login`
+
+## Licencia
 
 The MIT License (MIT)
 
