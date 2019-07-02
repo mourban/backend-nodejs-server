@@ -1,12 +1,15 @@
-//const supertest = require("supertest");
-const request = require('supertest');
-const users = require('../../routes/Users')
+const chai = require('chai');
+const chaiHttp = require('chai-http');
+const app = require('../../server');
+var supertest = require("supertest");
 
-//var server = supertest.agent("http://localhost:5000");
+chai.use(chaiHttp);
+chai.should();
+var server = supertest.agent("http://localhost:5000");
 
-describe('Pruebas automáticas de /user route', function() {
+describe('Pruebas automáticas básicas de /user route para comprobar los endpoints', () => {
 
-    let data = {
+    let dataUser = {
         //no id_user
         "first_name": "first_name",
         "last_name": "last_name",
@@ -14,56 +17,83 @@ describe('Pruebas automáticas de /user route', function() {
         "password": "password"
     }
     it('/user/add status', function(done) {
-        request(users)
-        .get('/list')
-        .then((response) => {
-            expect(response, done)
+        server
+        .post('/user/add')
+        .send(dataUser)
+        .expect("Content-type",/json/)
+        .expect(200) // Esta es la respuesta esperada
+        .end(function(err,res){
+            // La respuesta debe ser "200" lo que indica que el endpoint esta activo
+            res.should.have.status(200);
+            done();
         });
     });
 
-    /*it('/user/login status', function (done) {
-        return request(users)
-        .post('/login')
-        .then(function(response){
-            assert.equal(response.status, 200);
+    it("/user/list status", function(done){
+        server
+        .get("/user/list")
+        .expect("Content-type",/json/)
+        .expect(200) // Esta es la respuesta esperada
+        .end(function(err,res){
+            // La respuesta debe ser "200" lo que indica que el endpoint esta activo
+            res.should.have.status(200);
             done();
-        })
+        });
     });
 
-    it('/user/list status', function(done) {
-        return request(users)
-        .get('/list')
-        .then(function(response){
-            assert.equal(response.status, 200);
+    let id_user = 'e1c1b630-9d1a-11e9-b10f-3baad5c72953';
+    it("/user/:id status", function(done){
+        server
+        .get(`/user/${id_user}`)
+        .expect("Content-type",/json/)
+        .expect(400) // Esta es la respuesta esperada debido a que puede que no exista un usuario con id_user = 'e1c1b630-9d1a-11e9-b10f-3baad5c72977'
+        .end(function(err,res){
+            // La respuesta debe ser "400" lo que indica que el endpoint esta activo
+            res.should.have.status(400);
             done();
-        })
+        });
     });
 
-    it('/user/:id status', function(done) {
-        return request(users)
-        .get('/:id')
-        .then(function(response){
-            assert.equal(response.status, 200);
+    let dataLogin = {
+        "email": "email",
+        "password": "password"
+    }
+    it('/user/login status', function (done) {
+        server
+        .post('/user/login')
+        .send(dataLogin)
+        .expect("Content-type",/json/)
+        .expect(200) // Esta es la respuesta esperada
+        .end(function(err,res){
+            // La respuesta debe ser "200" lo que indica que el endpoint esta activo
+            res.should.have.status(200);
             done();
-        })
+        });
     });
 
-    it('/user/update/:id status', function(done) {
-        return request(users)
-        .put('/update/:id')
-        .then(function(response){
-            assert.equal(response.status, 200);
+    it("/user/update/:id status", function(done){
+        server
+        .put(`/user/update/${id_user}`)
+        .send(dataUser)
+        .expect("Content-type",/json/)
+        .expect(400) // Esta es la respuesta esperada debido a que puede que no exista un usuario con id_user = 'e1c1b630-9d1a-11e9-b10f-3baad5c72977'
+        .end(function(err,res){
+            // La respuesta debe ser "400" lo que indica que el endpoint esta activo
+            res.should.have.status(400);
             done();
-        })
+        });
     });
 
-    it('/user/delete/:id status', function(done) {
-        return request(users)
-        .delete('/delete/:id')
-        .then(function(response){
-            assert.equal(response.status, 200);
+    it("/user/delete/:id status", function(done){
+        server
+        .delete(`/user/delete/${id_user}`)
+        .expect("Content-type",/json/)
+        .expect(400) // Esta es la respuesta esperada debido a que puede que no exista un usuario con id_user = 'e1c1b630-9d1a-11e9-b10f-3baad5c72977'
+        .end(function(err,res){
+            // La respuesta debe ser "400" lo que indica que el endpoint esta activo
+            res.should.have.status(400);
             done();
-        })
-    });*/
+        });
+    });
 
 });
