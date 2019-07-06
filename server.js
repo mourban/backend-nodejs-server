@@ -10,8 +10,10 @@ app.use(cors());
 app.use(bodyParser.urlencoded({extended: false}));
 
 var Users = require("./routes/Users");
+var Tasks = require("./routes/Tasks");
 
 app.use("/user", Users);
+app.use("/task", Tasks);
 app.listen(port, () => {
     console.log("Servidor de prueba-tec-back esta corriendo en puerto: "+port);
 });

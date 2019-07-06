@@ -1,11 +1,14 @@
 # Node.js CRUD Usuarios + Login Postgres
 
-Este proyecto backend Node.js CRUD Usuarios + Login te permite hacer lo siguiente:
+Este proyecto backend Node.js CRUD Usuarios + To Do List + Login te permite hacer lo siguiente:
   - Puedes registrar usuarios.
   - Puedes editar usuarios.
   - Puedes eliminar usuarios.
   - Puedes listar usuarios.
   - Puedes hacer login con un usuario registrado.
+  - Puedes registrar tareas.
+  - Puedes editar tareas.
+  - Puedes eliminar tareas.
 
 Este proyecto es para aprendizaje.
 
