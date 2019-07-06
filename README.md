@@ -44,6 +44,24 @@ CREATE TABLE public."user"
     created character varying(100) COLLATE pg_catalog."default",
     CONSTRAINT users_pkey PRIMARY KEY (id_user)
 )
+
+-- Table: public."task"
+
+-- DROP TABLE public."task";
+
+CREATE TABLE public."task"
+(
+    id_task uuid NOT NULL,
+    description character varying(250) COLLATE pg_catalog."default",
+    created date,
+    status character varying(50) COLLATE pg_catalog."default",
+    id_user uuid,
+    CONSTRAINT task_pkey PRIMARY KEY (id_task),
+    CONSTRAINT user_id_user FOREIGN KEY (id_user)
+        REFERENCES public."user" (id_user) MATCH SIMPLE
+        ON UPDATE NO ACTION
+        ON DELETE NO ACTION
+)
 ```
 
 ## Como iniciar la aplicación
